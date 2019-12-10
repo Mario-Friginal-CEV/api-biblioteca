@@ -13,7 +13,11 @@ class LibrosController extends Controller
     public function listaLibros()
     {
         $libros = Libro::all(['id','Titulo','Autor','Genero','Sinopsis']);
-        return response()->json($libros);
+        if(empty($libros)){
+            $libros = array('error_code' => 400, 'error_msg' => 'Not found');
+        }else{
+            return response()->json($libros);
+        }
     }
 
     public function addLibro(Request $req)
@@ -122,6 +126,20 @@ class LibrosController extends Controller
                 }
             }
         }
+        return response()->json($response);
+    }
+
+    public function filtroAutor($autor)
+    {
+        $response = array('error_code' => 404, 'error_msg' => 'Autor '.$autor.' not found');
+        $response = Libro::where('autor', $autor)->get();
+        return response()->json($response);
+    }
+
+    public function filtroGenero($genero)
+    {
+        $response = array('error_code' => 404, 'error_msg' => 'Genero '.$genero.' not found');
+        $response = Libro::where('genero', $genero)->get();
         return response()->json($response);
     }
 }

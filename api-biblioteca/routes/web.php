@@ -27,6 +27,14 @@ Route::get('/libros/añadir', function () {
     return view('addLibro');
 });
 
+Route::get('/libros/eliminar', function () {
+    return view('deleteLibro');
+});
+
+Route::get('/libros/modificar', function () {
+    return view('modifyLibro');
+});
+
 //Parte de web bonus aqui
 // Route::middleware('auth:api')->get('/libros/lista', 'LibrosController@listaLibros');
 // Route::middleware('auth:api')->post('/libros/create', 'LibrosController@addLibro');
